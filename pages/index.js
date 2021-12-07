@@ -17,7 +17,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          yet another wobsite
+          yet another wobsite <span role="img" aria-label="rolling eyes emoji">🙄</span>
         </p>
       </main>
 

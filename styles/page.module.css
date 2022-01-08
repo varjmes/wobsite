@@ -5,7 +5,7 @@
 }
 
 .content-section {
-  background: var(--gray-1);
+  background: #f8f8ff;
   border-color: var(--gray-9);
   border-style: solid;
   border-width: var(--border-size-2);
@@ -65,6 +65,10 @@
   padding: var(--size-9) 0;
 }
 
+.main figure > span {
+  box-shadow: var(--shadow-2);
+}
+
 .subtitle {
   font-size: var(--font-size-fluid-2);
   line-height: var(--font-lineheight-3);
@@ -81,7 +85,7 @@
 
 .nav {
   background: var(--gray-9);
-  color: var(--gray-1);
+  color: #f8f8ff;
   display: flex;
   justify-content: right;
   position: fixed;
@@ -101,20 +105,20 @@
 }
 
 .nav a {
-  color: var(--gray-1);
+  color: #f8f8ff;
   text-decoration: none;
 }
 
 .nav a:hover,
 .nav a:active
 .nav a:focus {
-  color: var(--gray-1);
+  color: #f8f8ff;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .nav a:visited {
-  color: var(--gray-1);
+  color: #f8f8ff;
 }
 
 @media only screen and (max-width: 750px) {

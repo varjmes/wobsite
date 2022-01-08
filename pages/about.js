@@ -1,9 +1,12 @@
-
+import Head from 'next/head'
 import styles from '../styles/page.module.css'
 
 const About = () => {
   return (
     <>
+      <Head>
+        <title>james spencer: about</title>
+      </Head>
       <h1 className={styles.title}>
         about james spencer
       </h1>

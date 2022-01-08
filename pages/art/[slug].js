@@ -1,12 +1,17 @@
 import fs from 'fs'
 import { join } from 'path'
 import { MDXRemote } from 'next-mdx-remote'
+import Head from 'next/head'
 
 import { getParsedFileContentBySlug, renderMarkdown } from '../../lib/markdown'
 
 import Img from '../../components/Img'
+import styles from './art.module.css'
 
-const components = { Img }
+const components = {
+  Img,
+  p: props => <p className={styles.p} {...props} />
+}
 
 const POSTS_PATH = join(process.cwd(), '_art')
 
@@ -35,11 +40,15 @@ export const getStaticPaths = async () => {
 
 const Art = ({ frontMatter, html }) => {
   return (
-    <article>
-      <h1>{frontMatter.title}</h1>
-      <div>by { frontMatter.author.name }</div>
+    <>
+      <Head>
+        <title>james spencer: {frontMatter.title.toLowerCase()}</title>
+      </Head>
+      <article>
+      <h1 className={styles.h1}>{frontMatter.title}</h1>
       <MDXRemote {...html} components={components} />
-    </article>
+      </article>
+    </>
   )
 }
 

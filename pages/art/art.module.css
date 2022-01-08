@@ -1,0 +1,7 @@
+.p {
+  margin: var(--size-5) 0;
+  font-size: var(--font-size-3);
+  background: #f8f8ff;
+  padding: var(--size-7);
+  max-inline-size: initial;
+}

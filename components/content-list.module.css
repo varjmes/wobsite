@@ -1,6 +1,6 @@
 .content-item {
   align-items: center;
-  background: var(--gray-1);
+  background: #f8f8ff;
   border-color: var(--gray-9);
   border-style: solid;
   border-width: var(--border-size-2);
@@ -17,20 +17,20 @@
 
 .content-item:hover {
   background: var(--gray-9);
-  color: var(--gray-1) !important;
+  color: #f8f8ff !important;
 }
 
 .content-item:hover a {
-  color: var(--gray-1) !important;
+  color: #f8f8ff !important;
 }
 
 
 .content-item:hover .content-title {
-  color: var(--gray-1) !important;
+  color: #f8f8ff !important;
 }
 
 .content-item:hover a:visited {
-  color: var(--gray-1) !important;
+  color: #f8f8ff !important;
 }
 
 .content-list {

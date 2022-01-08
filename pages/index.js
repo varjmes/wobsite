@@ -11,8 +11,7 @@ export const getStaticProps = async ({ params }) => {
     .map(path => path.replace(/\.mdx?$/, ''))
 
   const titles = paths.map(path => {
-    const string = path.split('-').join(' ').toLowerCase()
-    const title = `${string[0].toUpperCase()}${string.slice(1)}`
+    const title = path.split('-').join(' ').toLowerCase()
     return {
       title,
       path

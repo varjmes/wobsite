@@ -5,3 +5,23 @@
   padding: var(--size-7);
   max-inline-size: unset;
 }
+
+.ul {
+  margin: var(--size-5) 0;
+  font-size: var(--font-size-3);
+  background: #f8f8ff;
+  padding: var(--size-7);
+  max-inline-size: unset;
+}
+
+.p a {
+  color: var(--indigo-9);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+.p a:hover,
+.p a:focus,
+.p a:active {
+  text-decoration: underline;
+}

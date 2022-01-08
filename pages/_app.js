@@ -17,7 +17,11 @@ const App = ({ Component, pageProps }) => {
               <a>Home</a>
             </Link>
           </li>
-          <li>About</li>
+          <li>
+            <Link href='/about'>
+              <a>About</a>
+            </Link>
+          </li>
         </ul>
       </nav>
       <div className={styles.container}>

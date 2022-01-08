@@ -33,7 +33,7 @@ const Home = ({ titles }) => {
         james spencer
       </h1>
 
-      <p className={styles.description}>
+      <p className={styles.subtitle}>
         senior developer &amp; art boy
       </p>
       <ContentList titles={titles} />

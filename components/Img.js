@@ -19,8 +19,12 @@ const rgbDataURL = (rgb = '255,255,255') => {
 }
 
 const Img = props => {
-  // eslint-disable-next-line jsx-a11y/alt-text
-  return <Image className={styles.image} {...props} blurDataURL={rgbDataURL(props.blurrgb)} />
+  return (
+    <figure className={styles['image-container']}>
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
+      <Image className={styles.image} {...props} blurDataURL={rgbDataURL(props.blurrgb)} />
+    </figure>
+  )
 }
 
 export default Img

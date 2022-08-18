@@ -6,14 +6,14 @@ import Head from 'next/head'
 import { getParsedFileContentBySlug, renderMarkdown } from '../../lib/markdown'
 
 import Img from '../../components/Img'
-import styles from './art.module.css'
+import styles from './posts.module.css'
 
 const components = {
   Img,
   p: props => <p className={styles.p} {...props} />
 }
 
-const POSTS_PATH = join(process.cwd(), '_art')
+const POSTS_PATH = join(process.cwd(), '_posts')
 
 export const getStaticProps = async ({ params }) => {
   const articleMarkdownContent = getParsedFileContentBySlug(params.slug, POSTS_PATH)
@@ -38,18 +38,20 @@ export const getStaticPaths = async () => {
   }
 }
 
-const Art = ({ frontMatter, html }) => {
+const Posts = ({ frontMatter, html }) => {
+  const date = new Date(frontMatter.date)
   return (
     <>
       <Head>
         <title>james spencer: {frontMatter.title.toLowerCase()}</title>
       </Head>
       <article>
-      <h1 className={styles.h1}>{frontMatter.title}</h1>
-      <MDXRemote {...html} components={components} />
+        <h1 className={styles.h1}>{frontMatter.title}</h1>
+        <span>{date.toLocaleString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        <MDXRemote {...html} components={components} />
       </article>
     </>
   )
 }
 
-export default Art
+export default Posts

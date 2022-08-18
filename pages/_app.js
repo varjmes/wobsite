@@ -47,14 +47,6 @@ const App = ({ Component, pageProps }) => {
           </a>
           |
           <a
-            href="https://instagram.com/varjmes"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            instagram
-          </a>
-          |
-          <a
             href="mailto:jmes.spncer@gmail.com"
             target="_blank"
             rel="noopener noreferrer"

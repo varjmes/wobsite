@@ -1,12 +1,4 @@
-.p {
-  margin: var(--size-5) 0;
-  font-size: var(--font-size-3);
-  background: #f8f8ff;
-  padding: var(--size-7);
-  max-inline-size: unset;
-}
-
-.ul {
+.p, .ul {
   margin: var(--size-5) 0;
   font-size: var(--font-size-3);
   background: #f8f8ff;
@@ -24,4 +16,17 @@
 .p a:focus,
 .p a:active {
   text-decoration: underline;
+}
+
+@media only screen and (max-width: 750px) {
+  .p, .ul {
+    font-size: var(--font-size-2);
+    background: #f8f8ff;
+    padding: var(--size-4);
+    max-inline-size: unset;
+  }
+
+  .p {
+    font-size: 1rem;
+  }
 }

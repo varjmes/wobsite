@@ -10,8 +10,6 @@ export const getStaticProps = async ({ params }) => {
   const paths = fs.readdirSync(POSTS_PATH).sort((a, b) => {
     return fs.statSync(POSTS_PATH + `/${a}`).mtime.getTime() - fs.statSync(POSTS_PATH + `/${b}`).mtime.getTime();
   }).map(path => path.replace(/\.mdx?$/, ''))
-  
-  console.log(paths)
 
   const titles = paths.map(path => {
     const title = path.split('-').join(' ').toLowerCase()

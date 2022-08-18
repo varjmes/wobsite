@@ -2,20 +2,23 @@
   "name": "wobsite",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "next build && npm run feed",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "feed": "node ./scripts/rss.js"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
+    "marked": "^4.0.18",
     "next": "12.0.7",
     "next-mdx-remote": "^3.0.8",
     "next-remote-watch": "^1.0.0",
     "open-props": "^1.0.12",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "rss": "^1.2.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.1",

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[jmes]]></title>
+        <description><![CDATA[words from james spencer]]></description>
+        <link>https://jmes.tech</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Thu, 18 Aug 2022 13:38:22 GMT</lastBuildDate>
+        <atom:link href="https://jmes.tech/feed.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Thu, 18 Aug 2022 13:38:22 GMT</pubDate>
+        <copyright><![CDATA[All rights reserved 2022, James Spencer]]></copyright>
+        <language><![CDATA[en]]></language>
+        <item>
+            <title><![CDATA[jmes.tech]]></title>
+            <description><![CDATA[<p>To be meta; the first post on this website for my creations will be about... the creation of this website.</p>
+<h2 id="the-purpose-of-this-website">the purpose of this website</h2>
+<p>I&#39;ve just resigned from my position as Senior Software Engineer at the Financial Times. At the end of my tenure I will have been there for just over two years. It&#39;s hard to believe I started at the company at around the time of the first lockdown in London at the start of the ongoing Coronavirus pandemic. Time flies when you&#39;re desperately trying to cling to life!</p>
+<p>Because of that desperate clinging to life, it&#39;s time to take a break. In the six years I&#39;ve been a developer/software engineer/programmer, I&#39;ve not had more than a month off and although this isn&#39;t strange <em>(in capitalist society)</em> to work non-stop, I need a break. I&#39;m going to be taking a short career break of three to six months. After three months I will start looking for a new job (hire me, set your calendars for July 1st). </p>
+<p>But what about those three months not working? If I do &quot;nothing&quot; I will very quickly find myself routineless and even more insane. In the last few months I&#39;ve rediscovered a love of art, and discovered that I could be a <em>lot</em> better at it. I&#39;ve been teaching myself 3D modelling and photography but I really feel like these will benefit from learning to draw, something I&#39;ve always wanted to do but never found the diligence or the time. So that&#39;s what I&#39;m going to do until I find a new job: draw, art, create and model.</p>
+<p>This website was built so I could give regular updates on my art studies to prove to myself that I am progressing. It&#39;s not so much a blog but more of a portfolio of progress shots.</p>
+<h2 id="tools-used">tools used</h2>
+<p>I&#39;d like to thank the following open source tools and developers for providing the tools with which to make this website: <a href="https://nextjs.org/">next</a>, <a href="https://github.com/hashicorp/next-mdx-remote">next-mdx-remote</a>, <a href="https://open-props.style/">open props</a>, <a href="https://reactjs.org/">react</a>
+and <a href="https://vercel.com/">vercel</a>.</p>
+]]></description>
+            <link>https://jmes.tech/posts/building-this-website</link>
+            <guid isPermaLink="true">https://jmes.tech/posts/building-this-website</guid>
+            <pubDate>Sat, 08 Jan 2022 20:35:45 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[cyoob]]></title>
+            <description><![CDATA[<p>For my first official &quot;art&quot; for this website, I&#39;ve made a game in <a href="https://unity.com/">Unity</a>.</p>
+<h2 id="why">why?</h2>
+<p>Despite resigning from my job, I&#39;m busier than ever in my notice period at the FT. As such, I don&#39;t have a lot of time or energy to focus on drawing/Blender. In order to keep up with some form of &quot;art&quot; I decided to use the programming skills I&#39;m exercising and have learned a bit of Unity which also involves learning C#.</p>
+<h2 id="unity-is-a-pain">unity is a pain</h2>
+<p>Unity is an absolute pain. To start with, Blender and Unity use different axes. In Blender, the z-axis is up. In Unity, the y-axis is up. The shortcuts are also irritatingly different. I don&#39;t know why I expected two pieces of software developed by two different companies to follow the same ideas, but I&#39;m irritated nonetheless.</p>
+<p>Add to that, Unity is not what I expected. I thought my 6+ years of professional programming experience would be a boon, but programming inside Unity is not what I expected at all. Although I can admit that C# sharp is new to me and that&#39;ll be part of it, the big barrier is the state of Unity help and documentation. Any time I get stuck I find myself looking at solutions from 2013 forum posts that don&#39;t work in 2021. Nothing seems particularly intuitive (yet?) so rather than be able to work it out for myself, I&#39;m searching code accross all of GitHub to find a solution that works. It&#39;s a bit of a chore.</p>
+<h2 id="cyoob">cyoob</h2>
+<p>That said, I did manage to make something! I&#39;ve been loosely following a <a href="https://www.gamedev.tv/p/complete-c-unity-game-developer-3d-online-course-2020">GameDev.tv</a> course and despite how frustrating I find Unity, I&#39;m still enjoying the experience enough. My first game is called &quot;Cyoob&quot; and it&#39;s a simple obstacle course that you navigate with a cube whilst enemy cubes and spheres try and hit you. It&#39;s rudimentary, there is no win state but it&#39;s a little beefier than the GameDev.tv tutorial in that the player is visibly aware of the amount of times they crash into something, and all enemy objects appear at random times. It&#39;s a WebGL game and only works with a keyboard (WASD/arrow keys), I&#39;ve published it on itch if you&#39;d like to play: <a href="https://varjmes.itch.io/cyoob">Cyoob</a>.</p>
+<p>I&#39;ve no intention of becoming a game developer, but <a href="https://www.transgame.dev/">TransGameDev</a> are doing a game jam next month and I wanted to see if I could learn enough to participate! I&#39;m keen to try and make assets in Blender and export them into a game of my making.</p>
+]]></description>
+            <link>https://jmes.tech/posts/my-first-game-in-unity</link>
+            <guid isPermaLink="true">https://jmes.tech/posts/my-first-game-in-unity</guid>
+            <pubDate>Sun, 16 Jan 2022 16:12:52 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

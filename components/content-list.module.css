@@ -53,6 +53,9 @@
 }
 
 @media only screen and (max-width: 750px) {
+  .content-list-heading {
+    font-size: var(--font-size-5);
+  }
   .content-title {
     font-size: var(--font-size-4);
   }

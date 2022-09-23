@@ -3,6 +3,7 @@ import fs from 'fs'
 import { join } from 'path'
 import styles from '../styles/page.module.css'
 import ContentList from '@/components/ContentList'
+import { getParsedFileContentBySlug } from '../lib/markdown'
 
 const POSTS_PATH = join(process.cwd(), '_posts')
 
@@ -11,22 +12,22 @@ export const getStaticProps = async ({ params }) => {
     return fs.statSync(POSTS_PATH + `/${a}`).mtime.getTime() - fs.statSync(POSTS_PATH + `/${b}`).mtime.getTime();
   }).map(path => path.replace(/\.mdx?$/, ''))
 
-  const titles = paths.map(path => {
-    const title = path.split('-').join(' ').toLowerCase()
+  const posts = paths.map(path => {
+    const matter = getParsedFileContentBySlug(path, POSTS_PATH).frontMatter
     return {
-      title,
-      path
+      path,
+      matter
     }
   })
 
   return {
     props: {
-      titles
+      posts
     }
   }
 }
 
-const Home = ({ titles }) => {
+const Home = ({ posts }) => {
   return (
     <>
       <h1 className={styles.title}>
@@ -36,7 +37,7 @@ const Home = ({ titles }) => {
       <p className={styles.subtitle}>
         senior developer &amp; human being
       </p>
-      <ContentList titles={titles} />
+      <ContentList posts={posts} />
     </>
   )
 }

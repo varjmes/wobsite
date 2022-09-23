@@ -9,7 +9,7 @@ const POSTS_PATH = join(process.cwd(), '_posts')
 
 export const getStaticProps = async ({ params }) => {
   const paths = fs.readdirSync(POSTS_PATH).sort((a, b) => {
-    return fs.statSync(POSTS_PATH + `/${a}`).mtime.getTime() - fs.statSync(POSTS_PATH + `/${b}`).mtime.getTime();
+    return fs.statSync(POSTS_PATH + `/${b}`).mtime.getTime() - fs.statSync(POSTS_PATH + `/${a}`).mtime.getTime();
   }).map(path => path.replace(/\.mdx?$/, ''))
 
   const posts = paths.map(path => {

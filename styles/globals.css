@@ -1,14 +1,31 @@
 @import "open-props/style";
 @import "open-props/normalize";
 
+
+:root {
+  --color-background: var(--pink-1);
+  --color-body: var(--gray-9);
+  --color-link: var(--indigo-9);
+  --color-visited: var(--grape-9);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--gray-9);
+    --color-body: var(--gray-4);
+    --color-link: var(--indigo-4);
+    --color-visited: var(--grape-4);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
 
 html,
 body {
-  background-color: var(--pink-1);
-  color: var(--gray-9);
+  background-color: var(--color-background);
+  color: var(--color-body);
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -16,10 +33,10 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--gray-9);
+  color: var(--color-body);
 }
 
 a {
   text-decoration: none;
-  color: var(--indigo-9);
+  color: var(--color-link);
 }

@@ -21,7 +21,7 @@ const getParsedFileContentBySlug = (slug, postsPath) => {
 const generateRss = () => {
     const url = 'https://jmes.tech'
     const paths = fs.readdirSync(POSTS_PATH).sort((a, b) => {
-        return fs.statSync(POSTS_PATH + `/${a}`).mtime.getTime() - fs.statSync(POSTS_PATH + `/${b}`).mtime.getTime()
+        return fs.statSync(POSTS_PATH + `/${b}`).mtime.getTime() - fs.statSync(POSTS_PATH + `/${a}`).mtime.getTime()
     }).map(path => path.replace(/\.mdx?$/, ''))
 
     const feed = new RSS({

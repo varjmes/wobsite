@@ -17,11 +17,6 @@ const App = ({ Component, pageProps }) => {
               <a>Home</a>
             </Link>
           </li>
-          <li>
-            <Link href='/about'>
-              <a>About</a>
-            </Link>
-          </li>
         </ul>
       </nav>
       <div className={styles.container}>
@@ -44,14 +39,6 @@ const App = ({ Component, pageProps }) => {
             rel="noopener noreferrer"
           >
             github
-          </a>
-          |
-          <a
-            href="mailto:jmes.spncer@gmail.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            email
           </a>
         </footer>
       </div>

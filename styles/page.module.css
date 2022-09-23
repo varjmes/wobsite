@@ -5,7 +5,7 @@
 }
 
 .content-section {
-  border-color: var(--gray-9);
+  border-color: var(--color-body);
   border-style: solid;
   border-width: var(--border-size-2);
   box-shadow: var(--shadow-2);
@@ -37,7 +37,7 @@
 }
 
 .container a, .nav a {
-  color: var(--indigo-9);
+  color: var(--color-link);
   display: inline;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -45,11 +45,11 @@
 
 .container a:visited,
 .footer a:visited {
-  color: var(--grape-9);
+  color: var(--color-visited);
 }
 
 .nav a {
-  color: var(--gray-9);
+  color: var(--color-body);
 }
 
 .footer a:first-of-type {
@@ -58,7 +58,7 @@
 }
 
 .main {
-  color: var(--gray-9);
+  color: var(--color-body);
   font-family: var(--font-sans);
   padding: var(--size-9) 0;
 }
@@ -74,7 +74,7 @@
 }
 
 .title {
-  color: var(--gray-9);
+  color: var(--color-body);
   font-size: var(--font-size-fluid-3);
   line-height: var(--font-lineheight-0);
   margin-top: var(--size-6);

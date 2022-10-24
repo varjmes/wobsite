@@ -1,0 +1,110 @@
+---
+title: 'What? How? Why? @layer'
+excerpt: 'An introduction to the @layer rule in CSS. Understand why you might want to use it, as quickly as possible.'
+date: '2022-10-24T08:46:37.175Z'
+author:
+  name: James Spencer
+---
+
+An introduction to the `@layer` rule in CSS. Understand why you might want to use it, as quickly as possible.
+
+## What is it?
+
+The cascade in CSS is the algorithm that determines what styles are applied when there are multiple style sources. On a day-to-day basis, you and I are most concerned with how that cascade resolves different rulesets trying to apply different styles to the same element. There are [a lot of rules](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance#understanding_the_cascade) to this, but the ones we're most concerned with are **specificity** and **order of appearance**. The most [specific](https://specifishity.com/) selector wins, and if the selectors have the same level of specificity; the ruleset that appears last wins.
+
+Sometimes the way the cascade styles your web page is not the way you wanted, perhaps your desires are colliding with the desires of another module you've written and included on the page, or with an external framework. You can fix this on a case by case basis by writing more specific selectors or using the brute-force method of `!important`.
+
+The `@layer` rule attempts to give more control over the cascade by enabling us to define our own cascade layers as well as their order of importance, so your styles come out exactly the way you intended.
+
+## How do I use it?
+
+```css
+@layer {
+	p {
+		color: pink;
+	}
+}
+```
+
+That's it. That's an anonymous (unnamed) cascade layer.
+
+You can name them, too.
+
+```css
+@layer cake {
+	p {
+		color: pink;
+	}
+}
+```
+
+The power of `@layer` comes from being able to define their order of importance.
+
+```css
+@layer base, new;
+@import url(base.css) layer(base);
+
+@layer new {
+	p {
+		color: orange;
+	}
+}
+```
+
+Say our company has a set of base styles shared across our apps, we've imported these, and it tells all our paragraphs to have a text `color` of black. But what if we're on our fifth redesign of the year and want to try out some new styles gradually? By defining the `new` layer, we can write some neatly defined overrides. On the first line of our stylesheet, we've told the cascade that our new styles are more important than our base styles.
+
+Be aware that unlayered styles are still more important than layered styles, and if you define no order of importance to your layers then they will be subject to the usual rules of the cascade: the last layer to appear is the “winner”.
+
+## Why would I use it?
+It's a nice way to **organise your styles**. For each component you build in a design library, for instance, you could structure your CSS Module in multiple layers. Not the main reason for `@layer` but it looks cute and clean.
+
+```css
+/** footer.css **/
+@layer variables {}
+@layer spacing {}
+@layer typography {}
+@layer colour {}
+@layer animation {}
+```
+
+If you're a user of **CSS resets,** you may want to ensure that this has the lowest priority in your cascade to ensure your own styles take precedence. Resets provide a baseline and should be easily overwritten.
+
+```css
+/** global.css **/
+@layer resets, then, everything, else;
+
+@import url(reset.css) layer(reset);
+@import url(then.css) layer(then);
+@import url(everything.css) layer(everything);
+@import url(else.css) layer(else);
+```
+
+If you're using an external library that takes it upon itself to annoy you by writing ridiculously specific rulesets that are hard to override, you can use [nested layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer#nesting_layers) to put that framework in its place.
+
+```css
+/** external.css **/
+@layer external.tootstrap, external.sailwind, external.overrides;
+
+@import url(tootstrap.css) layer(external.tootstrap);
+@import url(sailwind.css) layer(external.sailwind);
+@layer external.overrides {
+	p {
+		color: yellow;
+	}
+}
+```
+
+## Should I use it?
+At the time of writing, @layer is a “[candidate recommendation](https://caniuse.com/css-cascade-layers)” and is not something to start using in your every day work. Unlike other new CSS features, this one's going to take a while to… cascade… into robust browser support. So, no, I wouldn't use it right now.
+
+When `@layer` does receive widespread support, I would use it if:
+- I experienced a lot of conflicting styles with rulesets I had no control over
+- I wanted to have a pretty structure of layers for ease of readability
+
+I wouldn't use it if:
+- I had very few conflicting styles easily resolved by increased specificity of my selectors or promising I'd only use `!important` just this once 👀
+- I thought it was going to take care of my cascade issues magically, `@layer` use can still result in conflicts, and you can still throw `!important` on everything if you're an agent of chaos
+
+## Further reading
+- https://css-tricks.com/css-cascade-layers/
+- https://developer.mozilla.org/en-US/docs/Web/CSS/@layer

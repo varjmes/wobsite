@@ -21,7 +21,7 @@ export const getStaticProps = async ({ params }) => {
 
   return {
     props: {
-      frontMatter: articleMarkdownContent.frontMatter,
+      matter: articleMarkdownContent.matter,
       html: renderedHtml
     }
   }
@@ -38,15 +38,15 @@ export const getStaticPaths = async () => {
   }
 }
 
-const Posts = ({ frontMatter, html }) => {
-  const date = new Date(frontMatter.date)
+const Posts = ({ matter, html }) => {
+  const date = new Date(matter.date)
   return (
     <>
       <Head>
-        <title>james spencer: {frontMatter.title.toLowerCase()}</title>
+        <title>james spencer: {matter.title.toLowerCase()}</title>
       </Head>
       <article>
-        <h1 className={styles.h1}>{frontMatter.title}</h1>
+        <h1 className={styles.h1}>{matter.title}</h1>
         <span>{date.toLocaleString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
         <MDXRemote {...html} components={components} />
       </article>

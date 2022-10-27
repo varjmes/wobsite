@@ -61,6 +61,7 @@ pre {
   overflow-x: auto;
   background: #0d1117;
   padding: 1rem;
+  margin-bottom: var(--size-5);
 }
 
 .hljs {

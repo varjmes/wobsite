@@ -4,42 +4,181 @@
         <description><![CDATA[words from james spencer]]></description>
         <link>https://jmes.tech</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 18 Aug 2022 13:38:22 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 27 Oct 2022 09:31:15 GMT</lastBuildDate>
         <atom:link href="https://jmes.tech/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 18 Aug 2022 13:38:22 GMT</pubDate>
+        <pubDate>Thu, 27 Oct 2022 09:31:14 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2022, James Spencer]]></copyright>
         <language><![CDATA[en]]></language>
         <item>
-            <title><![CDATA[jmes.tech]]></title>
+            <title><![CDATA[What? How? Why? @layer]]></title>
+            <description><![CDATA[<p>An introduction to the <code>@layer</code> rule in CSS. Understand why you might want to use it, as quickly as possible.</p>
+<h2 id="what-is-it">What is it?</h2>
+<p>The cascade in CSS is the algorithm that determines what styles are applied when there are multiple style sources. On a day-to-day basis, you and I are most concerned with how that cascade resolves different rulesets trying to apply different styles to the same element. There are <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance#understanding_the_cascade">a lot of rules</a> to this, but the ones we&#39;re most concerned with are <strong>specificity</strong> and <strong>order of appearance</strong>. The most <a href="https://specifishity.com/">specific</a> selector wins, and if the selectors have the same level of specificity; the ruleset that appears last wins.</p>
+<p>Sometimes the way the cascade styles your web page is not the way you wanted, perhaps your desires are colliding with the desires of another module you&#39;ve written and included on the page, or with an external framework. You can fix this on a case by case basis by writing more specific selectors or using the brute-force method of <code>!important</code>.</p>
+<p>The <code>@layer</code> rule attempts to give more control over the cascade by enabling us to define our own cascade layers as well as their order of importance, so your styles come out exactly the way you intended.</p>
+<h2 id="how-do-i-use-it">How do I use it?</h2>
+<pre><code class="language-css">@layer {
+    p {
+        color: pink;
+    }
+}
+</code></pre>
+<p>That&#39;s it. That&#39;s an anonymous (unnamed) cascade layer.</p>
+<p>You can name them, too.</p>
+<pre><code class="language-css">@layer cake {
+    p {
+        color: pink;
+    }
+}
+</code></pre>
+<p>The power of <code>@layer</code> comes from being able to define their order of importance.</p>
+<pre><code class="language-css">@layer base, new;
+@import url(base.css) layer(base);
+
+@layer new {
+    p {
+        color: orange;
+    }
+}
+</code></pre>
+<p>Say our company has a set of base styles shared across our apps, we&#39;ve imported these, and it tells all our paragraphs to have a text <code>color</code> of black. But what if we&#39;re on our fifth redesign of the year and want to try out some new styles gradually? By defining the <code>new</code> layer, we can write some neatly defined overrides. On the first line of our stylesheet, we&#39;ve told the cascade that our new styles are more important than our base styles.</p>
+<p>Be aware that unlayered styles are still more important than layered styles, and if you define no order of importance to your layers then they will be subject to the usual rules of the cascade: the last layer to appear is the “winner”.</p>
+<h2 id="why-would-i-use-it">Why would I use it?</h2>
+<p>It&#39;s a nice way to <strong>organise your styles</strong>. For each component you build in a design library, for instance, you could structure your CSS Module in multiple layers. Not the main reason for <code>@layer</code> but it looks cute and clean.</p>
+<pre><code class="language-css">/** footer.css **/
+@layer variables {}
+@layer spacing {}
+@layer typography {}
+@layer colour {}
+@layer animation {}
+</code></pre>
+<p>If you&#39;re a user of <strong>CSS resets,</strong> you may want to ensure that this has the lowest priority in your cascade to ensure your own styles take precedence. Resets provide a baseline and should be easily overwritten.</p>
+<pre><code class="language-css">/** global.css **/
+@layer resets, then, everything, else;
+
+@import url(reset.css) layer(reset);
+@import url(then.css) layer(then);
+@import url(everything.css) layer(everything);
+@import url(else.css) layer(else);
+</code></pre>
+<p>If you&#39;re using an external library that takes it upon itself to annoy you by writing ridiculously specific rulesets that are hard to override, you can use <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer#nesting_layers">nested layers</a> to put that framework in its place.</p>
+<pre><code class="language-css">/** external.css **/
+@layer external.tootstrap, external.sailwind, external.overrides;
+
+@import url(tootstrap.css) layer(external.tootstrap);
+@import url(sailwind.css) layer(external.sailwind);
+@layer external.overrides {
+    p {
+        color: yellow;
+    }
+}
+</code></pre>
+<h2 id="should-i-use-it">Should I use it?</h2>
+<p>At the time of writing, @layer is a “<a href="https://caniuse.com/css-cascade-layers">candidate recommendation</a>” and is not something to start using in your every day work. Unlike other new CSS features, this one&#39;s going to take a while to… cascade… into robust browser support. So, no, I wouldn&#39;t use it right now.</p>
+<p>When <code>@layer</code> does receive widespread support, I would use it if:</p>
+<ul>
+<li>I experienced a lot of conflicting styles with rulesets I had no control over</li>
+<li>I wanted to have a pretty structure of layers for ease of readability</li>
+</ul>
+<p>I wouldn&#39;t use it if:</p>
+<ul>
+<li>I had very few conflicting styles easily resolved by increased specificity of my selectors or promising I&#39;d only use <code>!important</code> just this once 👀</li>
+<li>I thought it was going to take care of my cascade issues magically, <code>@layer</code> use can still result in conflicts, and you can still throw <code>!important</code> on everything if you&#39;re an agent of chaos</li>
+</ul>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li><a href="https://css-tricks.com/css-cascade-layers/">https://css-tricks.com/css-cascade-layers/</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer">https://developer.mozilla.org/en-US/docs/Web/CSS/@layer</a></li>
+</ul>
+]]></description>
+            <link>https://jmes.tech/posts/[object Object]</link>
+            <guid isPermaLink="true">https://jmes.tech/posts/[object Object]</guid>
+            <pubDate>Mon, 24 Oct 2022 08:46:37 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Week of the rollercoaster]]></title>
+            <description><![CDATA[<iframe style={{marginTop: "1rem"}} src="https://open.spotify.com/embed/track/7q2vosjX9aP8XxKFs7nakK?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<p><a href="https://open.spotify.com/track/7q2vosjX9aP8XxKFs7nakK?si=9667df709ef344c9">“30” by Bo Burnham</a></p>
+<p>This week had a musical start as I finally got to see <a href="https://dearevanhansen.com/">Dear Evan Hansen</a> before it ends its London run this month. It was a fantastic experience; vastly better than the film where they managed to make Ben Platt even older than he was, and even better than the studio album I&#39;ve spent over a year listening to. I was worried that I wouldn&#39;t enjoy it as I spent two years listening to the Hamilton album before I got to see it in person, only to be largely dissapointed when I saw the live act.</p>
+<p>Seeing it was a very important bit of closure. My ex-girlfriend and I had tickets for it in February 2020, but it was cancelled (and rightly so) due to the emerging pandemic. Two and a half years ago we were very different people and were in a relationship with eachother. Now we&#39;re dating other people and are fundamentally different humans. Seeing it together was a pleasant close to a rollercoaster of a life chapter.</p>
+<hr>
+<p>I am re-entering the working world in November as I was offered a very lovely gig as a Senior Frontend Developer with [redacted]! I&#39;ve only worked for large companies (100s-1000s of employees) and as my career went on I became further removed from the people I was building products for. Not only that, but I&#39;ll be working in a small team in a small company where the user is the point. </p>
+<p>The place I&#39;m going to (I&#39;ll tell you once the contract is signed) actually seems to <em>want</em> me and are excited about me joining, so much so that they asked me to start earlier (I can&#39;t). I&#39;ll also be doing a four-day week, and it works out to me earning the exact same money as I did at my previous job, for a better quality of life.</p>
+<p>I&#39;ll also be frontend rather than full-stack, and damn I&#39;m excited to be building pretty and accessible websites again.</p>
+<hr>
+<p>I&#39;ve been on a deliberated-but-still-impulsive body mod kick for the past few weeks. <a href="https://twitter.com/selfawaresoup">Esther</a> is a bad infuence on me. I got a tattoo of a goth cat a couple of weeks ago and just got down with two fresh helix piercings. This brings my total to two tattoos and seven in-use (nine including unused/semi-healed) piercings.</p>
+<p>Once my right ear is healed, I&#39;ll get another two helix piercings in the left ear, so both ears will be symetrical with three helix piercings and one lobe piercing each. I&#39;ve also booked another tattoo for this week. Then I should probably have a break!</p>
+<hr>
+<p>I was feeling really happy this week as I have a lot to be happy about, and it felt like life was mine to conquer. Of course this made me vulnerable to some retraumitisation from past events which hit me like a tonne of bricks. As I write this I don&#39;t feel very good about myself, but getting out of my depression cocoon and writing this has been very helpful.</p>
+<hr>
+<p>I finally got to meet a bunch of london-dwelling friends from my “we all have ADHD” WhatsApp group! We went for a roast dinner, and it was just wonderful to finally be surrounded by the friends I&#39;ve been talking to most days since early 2020. I spent most of the day talking with one of my friends babies, and I got to hold her. Holding a baby is an immediate cure to any bad feelings, she was a wonder.</p>
+<hr>
+<p>It&#39;s spooky szn aka. Halloween! I&#39;ve never really cared about Halloween but I could do with some routine to prepare me for going back to work, so I&#39;m going to try to watch some horror films most nights. </p>
+<p>I&#39;m not sure whether I&#39;ll follow through as I am easily scared and hate watching scary movies alone. I got Esther to watch <a href="https://en.wikipedia.org/wiki/It_Follows">It Follows</a>with me over a video call, so I could make it through. I&#39;ve seen the film once before, so it wasn&#39;t as scary as the first watch, but still uncomfortable.</p>
+<p>Last night we watched <a href="https://en.wikipedia.org/wiki/The_Witch_(2015_film)">The VVitch</a> which I wouldn&#39;t class as a horror film, but it had a couple of scary jumps and beautiful cinematography.</p>
+<p>What should I watch next?</p>
+<hr>
+<p>Despite some difficult feelings toward the end of the week, I&#39;d say this week was much better than last. Long may that pattern continue.</p>
+]]></description>
+            <link>https://jmes.tech/posts/[object Object]</link>
+            <guid isPermaLink="true">https://jmes.tech/posts/[object Object]</guid>
+            <pubDate>Mon, 03 Oct 2022 09:37:07 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Week of confusion]]></title>
+            <description><![CDATA[<iframe style={{marginTop: "1rem"}} src="https://open.spotify.com/embed/playlist/37i9dQZF1DWZUAeYvs88zc?utm_source=generator&theme=0" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<p><a href="https://open.spotify.com/playlist/37i9dQZF1DWZUAeYvs88zc?si=774c7208f45440e2">“Sad Bops” Spotify Playlist</a></p>
+<p>It&#39;s definitely an interesting choice to start writing “week notes” during a week in which little has happened due to intense depression; but omitting the bad stuff wouldn&#39;t give anyone a full picture of “James”.</p>
+<p>On Monday morning, I flew from Berlin back to my home in London after a brief but wonderful weekend with a person I&#39;m dating. Having to leave her would have been emotional enough, but I also had to deal with a delayed flight and difficult transport within London itself thanks to the Queen deciding to die and have her funeral that day.</p>
+<p>I&#39;ve always been anti-monarchy but seeing all this fuss and watching the Conservative government use her death as an excuse to ignore the serious crises we have (energy, health, food etc.) in this country really cemented things for me. It&#39;s certainly been mind-blowing to see folk in my community I&#39;d generally assume were anti-royal (trans, queer, disabled people et al.) bend over backwards to show their support for a regime that has never lifted a finger for them. </p>
+<p>It&#39;s a shame to see that nuance isn&#39;t a skill most of us have, as people think me publically denouncing such a regime means I am glad a person has died. It&#39;s sad when people die, it&#39;s also sad when that person is responsible for the hardship of others and is literally the face of colonialism.</p>
+<hr>
+<p>In May, my three-year monogamous relationship came to end. Though sad and something I&#39;m still working through in therapy it also kickstarted some needed introspection and growth, as well as a reexploration of polyamory and what it means to me.</p>
+<p>I&#39;ve tried polyamory once before, it was very unsuccessful and led me to believe that it wasn&#39;t right for me. Through therapy and seeing friends participate in healthy and nourishing polyamory, I realised that the problems I experienced in polyamory are the same I experienced in monogamy: poor communication.</p>
+<p>I am now pleased to say I am dating two people, one of which has been really influential on my trying polyamory again in the first place. I want to practice a polyamory that is non-hierarchical and filled with love and open communication, and seeing her practice that has been an inspiration to my own practice and also an inspiration to start dating her.</p>
+<p>However, it&#39;s not all sunshine. I&#39;m still healing from my previous relationship, one of the people I am dating lives in another country and the other, despite living in the same city as me, is recovering from major surgery so we won&#39;t be seeing eachother for a while. It sometimes feels easier to be completely alone than it is to have people who care for you that are inaccessible, but I&#39;d still rather have these people in my life than not.</p>
+<hr>
+<p>I&#39;ve been thinking a lot lately about how to grow my following on <a href="https://twitter.com/varjmes">Twitter</a>. I&#39;ve always seen twitter followers as a form of validation (unhealthy? Sure!) so seeing the number go up is satisfying, but I also just miss having a more coherent community on the platform. My follower count has been stagnant for a few years now once I stopped participating in open souce and being very tech-focused and spent more time talking about my feelings as well as the global political climate.</p>
+<p>I don&#39;t know what my current or potential followers want from me as despite having (at the time of writing) 3,936 followers; I receive very little engagement on the variety of topics I write about. It shouldn&#39;t matter to me, but it does. If nothing else, I hate not knowing the answer to something and the question of “people” has plagued me for many years.</p>
+<p>I suppose this whole week note and likely other week notes to come revolves around that: people confuse me, and I do not like that. Please stop it!</p>
+]]></description>
+            <link>https://jmes.tech/posts/[object Object]</link>
+            <guid isPermaLink="true">https://jmes.tech/posts/[object Object]</guid>
+            <pubDate>Sun, 25 Sep 2022 10:19:42 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[My first game in Unity]]></title>
+            <description><![CDATA[<p>For my first official &quot;art&quot; for this website, I&#39;ve made a game in <a href="https://unity.com/">Unity</a>.</p>
+<h2 id="why">Why?</h2>
+<p>Despite resigning from my job, I&#39;m busier than ever in my notice period at the FT. As such, I don&#39;t have a lot of time or energy to focus on drawing/Blender. In order to keep up with some form of &quot;art&quot; I decided to use the programming skills I&#39;m exercising and have learned a bit of Unity which also involves learning C#.</p>
+<h2 id="unity-is-a-pain">Unity is a pain</h2>
+<p>Unity is an absolute pain. To start with, Blender and Unity use different axes. In Blender, the z-axis is up. In Unity, the y-axis is up. The shortcuts are also irritatingly different. I don&#39;t know why I expected two pieces of software developed by two different companies to follow the same ideas, but I&#39;m irritated nonetheless.</p>
+<p>Add to that, Unity is not what I expected. I thought my 6+ years of professional programming experience would be a boon, but programming inside Unity is not what I expected at all. Although I can admit that C# sharp is new to me and that&#39;ll be part of it, the big barrier is the state of Unity help and documentation. Any time I get stuck I find myself looking at solutions from 2013 forum posts that don&#39;t work in 2021. Nothing seems particularly intuitive (yet?) so rather than be able to work it out for myself, I&#39;m searching code accross all of GitHub to find a solution that works. It&#39;s a bit of a chore.</p>
+<h2 id="cyoob">Cyoob</h2>
+<p>That said, I did manage to make something! I&#39;ve been loosely following a <a href="https://www.gamedev.tv/p/complete-c-unity-game-developer-3d-online-course-2020">GameDev.tv</a> course and despite how frustrating I find Unity, I&#39;m still enjoying the experience enough. My first game is called &quot;Cyoob&quot; and it&#39;s a simple obstacle course that you navigate with a cube whilst enemy cubes and spheres try and hit you. It&#39;s rudimentary, there is no win state but it&#39;s a little beefier than the GameDev.tv tutorial in that the player is visibly aware of the amount of times they crash into something, and all enemy objects appear at random times. It&#39;s a WebGL game and only works with a keyboard (WASD/arrow keys), I&#39;ve published it on itch if you&#39;d like to play: <a href="https://varjmes.itch.io/cyoob">Cyoob</a>.</p>
+<p>I&#39;ve no intention of becoming a game developer, but <a href="https://www.transgame.dev/">TransGameDev</a> are doing a game jam next month and I wanted to see if I could learn enough to participate! I&#39;m keen to try and make assets in Blender and export them into a game of my making.</p>
+]]></description>
+            <link>https://jmes.tech/posts/[object Object]</link>
+            <guid isPermaLink="true">https://jmes.tech/posts/[object Object]</guid>
+            <pubDate>Sun, 16 Jan 2022 16:12:52 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Building this website]]></title>
             <description><![CDATA[<p>To be meta; the first post on this website for my creations will be about... the creation of this website.</p>
-<h2 id="the-purpose-of-this-website">the purpose of this website</h2>
+<h2 id="the-purpose-of-this-website">The purpose of this website</h2>
 <p>I&#39;ve just resigned from my position as Senior Software Engineer at the Financial Times. At the end of my tenure I will have been there for just over two years. It&#39;s hard to believe I started at the company at around the time of the first lockdown in London at the start of the ongoing Coronavirus pandemic. Time flies when you&#39;re desperately trying to cling to life!</p>
 <p>Because of that desperate clinging to life, it&#39;s time to take a break. In the six years I&#39;ve been a developer/software engineer/programmer, I&#39;ve not had more than a month off and although this isn&#39;t strange <em>(in capitalist society)</em> to work non-stop, I need a break. I&#39;m going to be taking a short career break of three to six months. After three months I will start looking for a new job (hire me, set your calendars for July 1st). </p>
 <p>But what about those three months not working? If I do &quot;nothing&quot; I will very quickly find myself routineless and even more insane. In the last few months I&#39;ve rediscovered a love of art, and discovered that I could be a <em>lot</em> better at it. I&#39;ve been teaching myself 3D modelling and photography but I really feel like these will benefit from learning to draw, something I&#39;ve always wanted to do but never found the diligence or the time. So that&#39;s what I&#39;m going to do until I find a new job: draw, art, create and model.</p>
 <p>This website was built so I could give regular updates on my art studies to prove to myself that I am progressing. It&#39;s not so much a blog but more of a portfolio of progress shots.</p>
-<h2 id="tools-used">tools used</h2>
+<h2 id="tools-used">Tools used</h2>
 <p>I&#39;d like to thank the following open source tools and developers for providing the tools with which to make this website: <a href="https://nextjs.org/">next</a>, <a href="https://github.com/hashicorp/next-mdx-remote">next-mdx-remote</a>, <a href="https://open-props.style/">open props</a>, <a href="https://reactjs.org/">react</a>
 and <a href="https://vercel.com/">vercel</a>.</p>
 ]]></description>
-            <link>https://jmes.tech/posts/building-this-website</link>
-            <guid isPermaLink="true">https://jmes.tech/posts/building-this-website</guid>
+            <link>https://jmes.tech/posts/[object Object]</link>
+            <guid isPermaLink="true">https://jmes.tech/posts/[object Object]</guid>
             <pubDate>Sat, 08 Jan 2022 20:35:45 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[cyoob]]></title>
-            <description><![CDATA[<p>For my first official &quot;art&quot; for this website, I&#39;ve made a game in <a href="https://unity.com/">Unity</a>.</p>
-<h2 id="why">why?</h2>
-<p>Despite resigning from my job, I&#39;m busier than ever in my notice period at the FT. As such, I don&#39;t have a lot of time or energy to focus on drawing/Blender. In order to keep up with some form of &quot;art&quot; I decided to use the programming skills I&#39;m exercising and have learned a bit of Unity which also involves learning C#.</p>
-<h2 id="unity-is-a-pain">unity is a pain</h2>
-<p>Unity is an absolute pain. To start with, Blender and Unity use different axes. In Blender, the z-axis is up. In Unity, the y-axis is up. The shortcuts are also irritatingly different. I don&#39;t know why I expected two pieces of software developed by two different companies to follow the same ideas, but I&#39;m irritated nonetheless.</p>
-<p>Add to that, Unity is not what I expected. I thought my 6+ years of professional programming experience would be a boon, but programming inside Unity is not what I expected at all. Although I can admit that C# sharp is new to me and that&#39;ll be part of it, the big barrier is the state of Unity help and documentation. Any time I get stuck I find myself looking at solutions from 2013 forum posts that don&#39;t work in 2021. Nothing seems particularly intuitive (yet?) so rather than be able to work it out for myself, I&#39;m searching code accross all of GitHub to find a solution that works. It&#39;s a bit of a chore.</p>
-<h2 id="cyoob">cyoob</h2>
-<p>That said, I did manage to make something! I&#39;ve been loosely following a <a href="https://www.gamedev.tv/p/complete-c-unity-game-developer-3d-online-course-2020">GameDev.tv</a> course and despite how frustrating I find Unity, I&#39;m still enjoying the experience enough. My first game is called &quot;Cyoob&quot; and it&#39;s a simple obstacle course that you navigate with a cube whilst enemy cubes and spheres try and hit you. It&#39;s rudimentary, there is no win state but it&#39;s a little beefier than the GameDev.tv tutorial in that the player is visibly aware of the amount of times they crash into something, and all enemy objects appear at random times. It&#39;s a WebGL game and only works with a keyboard (WASD/arrow keys), I&#39;ve published it on itch if you&#39;d like to play: <a href="https://varjmes.itch.io/cyoob">Cyoob</a>.</p>
-<p>I&#39;ve no intention of becoming a game developer, but <a href="https://www.transgame.dev/">TransGameDev</a> are doing a game jam next month and I wanted to see if I could learn enough to participate! I&#39;m keen to try and make assets in Blender and export them into a game of my making.</p>
-]]></description>
-            <link>https://jmes.tech/posts/my-first-game-in-unity</link>
-            <guid isPermaLink="true">https://jmes.tech/posts/my-first-game-in-unity</guid>
-            <pubDate>Sun, 16 Jan 2022 16:12:52 GMT</pubDate>
         </item>
     </channel>
 </rss>

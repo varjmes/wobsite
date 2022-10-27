@@ -8,16 +8,16 @@ import { getParsedFileContentBySlug } from '../lib/markdown'
 const POSTS_PATH = join(process.cwd(), '_posts')
 
 export const getStaticProps = async ({ params }) => {
-  const paths = fs.readdirSync(POSTS_PATH).sort((a, b) => {
-    return fs.statSync(POSTS_PATH + `/${b}`).mtime.getTime() - fs.statSync(POSTS_PATH + `/${a}`).mtime.getTime();
-  }).map(path => path.replace(/\.mdx?$/, ''))
+  const paths = fs.readdirSync(POSTS_PATH).map(path => path.replace(/\.mdx?$/, ''))
 
   const posts = paths.map(path => {
-    const matter = getParsedFileContentBySlug(path, POSTS_PATH).frontMatter
+    const { matter } = getParsedFileContentBySlug(path, POSTS_PATH)
     return {
       path,
       matter
     }
+  }).sort((a, b) => {
+      return new Date(b.matter.date) - new Date(a.matter.date)
   })
 
   return {

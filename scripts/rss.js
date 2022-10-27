@@ -13,16 +13,14 @@ const getParsedFileContentBySlug = (slug, postsPath) => {
     const { data, content } = matter(fileContents);
 
     return {
-        frontMatter: data,
+        matter: data,
         content
     };
 }
 
 const generateRss = () => {
     const url = 'https://jmes.tech'
-    const paths = fs.readdirSync(POSTS_PATH).sort((a, b) => {
-        return fs.statSync(POSTS_PATH + `/${b}`).mtime.getTime() - fs.statSync(POSTS_PATH + `/${a}`).mtime.getTime()
-    }).map(path => path.replace(/\.mdx?$/, ''))
+    const paths = fs.readdirSync(POSTS_PATH).map(path => path.replace(/\.mdx?$/, ''))
 
     const feed = new RSS({
         title: 'jmes',
@@ -35,13 +33,19 @@ const generateRss = () => {
     })
 
     paths.map(path => {
-        const {frontMatter, content} = getParsedFileContentBySlug(path, POSTS_PATH)
-        const html = marked(content)
-
+        const {matter, content} = getParsedFileContentBySlug(path, POSTS_PATH)
+        return {
+            content,
+            matter
+        }
+    }).sort((a, b) => {
+        return new Date(b.matter.date) - new Date(a.matter.date)
+    }).map(post => {
+        const html = marked(post.content)
         feed.item({
-            title: frontMatter.title,
+            title: post.matter.title,
             url: `${url}/posts/${path}`,
-            date: frontMatter.date,
+            date: post.matter.date,
             description: html.replace(/(<p><Img([^>]+)><\/p>\n)/ig, '')
         })
     })

@@ -98,6 +98,10 @@
 }
 
 @media only screen and (max-width: 750px) {
+  .main {
+      padding-top: 0;
+  }
+
   .container {
     padding: 0 var(--size-3);
   }

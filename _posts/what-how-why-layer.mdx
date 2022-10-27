@@ -51,9 +51,9 @@ The power of `@layer` comes from being able to define their order of importance.
 }
 ```
 
-Say our company has a set of base styles shared across our apps, we've imported these, and it tells all our paragraphs to have a text `color` of black. But what if we're on our fifth redesign of the year and want to try out some new styles gradually? By defining the `new` layer, we can write some neatly defined overrides. On the first line of our stylesheet, we've told the cascade that our new styles are more important than our base styles.
+Say our company has a set of base styles shared across our apps, we've imported these, and it tells all our paragraphs to have a text `color` of black. But what if we're on our fifth redesign of the year and want to try out some new styles gradually? By defining the `new` layer, we can write some neatly defined overrides. Importance is defined in ascending order; in the snippet below, "new" is more important than "base".
 
-Be aware that unlayered styles are still more important than layered styles, and if you define no order of importance to your layers then they will be subject to the usual rules of the cascade: the last layer to appear is the “winner”.
+Be aware that styles you define in layers will always be less important than your existing unlayered styles, unless you wrap all your existing styles in a layer. Also, if you define no order of importance to your layers then they will be subject to the usual rules of the cascade: the last layer to appear is the “winner”.
 
 ## Why would I use it?
 It's a nice way to **organise your styles**. For each component you build in a design library, for instance, you could structure your CSS Module in multiple layers. Not the main reason for `@layer` but it looks cute and clean.

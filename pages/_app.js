@@ -43,8 +43,14 @@ const App = ({ Component, pageProps }) => {
 
         <footer className={styles.footer}>
           <a
+            href="https://strangeobject.space/@james"
+            rel="me noopener noreferrer"
+          >
+            mastodon
+          </a>
+          |
+          <a
             href="https://twitter.com/varjmes"
-            target="_blank"
             rel="noopener noreferrer"
           >
             twitter
@@ -52,7 +58,6 @@ const App = ({ Component, pageProps }) => {
           |
           <a
             href="https://github.com/varjmes"
-            target="_blank"
             rel="noopener noreferrer"
           >
             github

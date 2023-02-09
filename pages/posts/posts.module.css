@@ -1,18 +1,36 @@
 .p,
-.ul,
-.blockquote {
+.ul {
   margin: var(--size-5) 0;
   font-size: var(--font-size-3);
   padding: var(--size-2) 0;
+}
+
+.p,
+.ul,
+.blockquote {
   max-inline-size: unset;
+}
+
+.blockquote p {
+  margin: 0;
+  padding: 0;
 }
 
 @media only screen and (max-width: 750px) {
   .p,
+  .ul {
+    font-size: var(--font-size-2);
+  }
+
+  .p,
   .ul,
   .blockquote {
-    font-size: var(--font-size-2);
     max-inline-size: unset;
+  }
+
+  .blockquote p {
+    margin: 0;
+    padding: 0;
   }
 
   .p {

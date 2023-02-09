@@ -1,6 +1,6 @@
 .p,
 .ul,
-blockquote {
+.blockquote {
   margin: var(--size-5) 0;
   font-size: var(--font-size-3);
   padding: var(--size-2) 0;
@@ -10,7 +10,7 @@ blockquote {
 @media only screen and (max-width: 750px) {
   .p,
   .ul,
-  blockquote {
+  .blockquote {
     font-size: var(--font-size-2);
     max-inline-size: unset;
   }
